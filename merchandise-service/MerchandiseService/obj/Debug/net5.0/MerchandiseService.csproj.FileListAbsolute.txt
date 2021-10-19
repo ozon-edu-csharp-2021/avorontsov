@@ -1,6 +1,5 @@
 D:\Work\tests\ozon\merchandise-service\merchandise-service\MerchandiseService\bin\Debug\net5.0\appsettings.Development.json
 D:\Work\tests\ozon\merchandise-service\merchandise-service\MerchandiseService\bin\Debug\net5.0\appsettings.json
-D:\Work\tests\ozon\merchandise-service\merchandise-service\MerchandiseService\bin\Debug\net5.0\appsettings.Local.json
 D:\Work\tests\ozon\merchandise-service\merchandise-service\MerchandiseService\bin\Debug\net5.0\MerchandiseService.exe
 D:\Work\tests\ozon\merchandise-service\merchandise-service\MerchandiseService\bin\Debug\net5.0\MerchandiseService.deps.json
 D:\Work\tests\ozon\merchandise-service\merchandise-service\MerchandiseService\bin\Debug\net5.0\MerchandiseService.runtimeconfig.json
