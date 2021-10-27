@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +20,7 @@ namespace MerchandiseService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //services.AddGrpc(options => options.Interceptors.Add<LoggingInterceptor>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,8 +35,9 @@ namespace MerchandiseService
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context => { await context.Response.WriteAsync("Hello World!"); });
-                //endpoints.MapConnections("");
+                //endpoints.MapGet("/", async context => { await context.Response.WriteAsync("Hello World!"); });
+                //endpoints.MapGrpcService<MerchandiseServiceGrpService>();
+                endpoints.MapControllers();
             });
         }
     }

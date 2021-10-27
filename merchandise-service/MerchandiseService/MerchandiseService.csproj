@@ -11,4 +11,13 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MerchandiseService.HttpModels\MerchandiseService.HttpModels.csproj" />
+    </ItemGroup>
+
 </Project>
