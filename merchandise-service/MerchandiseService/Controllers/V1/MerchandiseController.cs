@@ -1,15 +1,16 @@
-﻿using MerchandiseService.Models;
+﻿using MerchandiseService.HttpModels;
+using MerchandiseService.Models;
 using MerchandiseService.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using MerchandiseService.HttpModels;
 
 namespace MerchandiseService.Controllers.V1
 {
     [ApiController]
-    [Route("v1/api/Merchandise")]
+    [Route("v1/api/merchandise")]
     [Produces("application/json")]
     public class MerchandiseController : ControllerBase
     {
@@ -23,20 +24,21 @@ namespace MerchandiseService.Controllers.V1
         [HttpGet]
         public async Task<IActionResult> GetAll(CancellationToken token)
         {
-            var MerchandiseItems = await _merchandiseService.GetAll(token);
-            return Ok(MerchandiseItems);
+            var merchandiseItems = await _merchandiseService.GetAll(token);
+            return Ok(merchandiseItems);
         }
 
         [HttpGet("{id:long}")]
+        [ProducesResponseType(typeof(MerchandiseItem), StatusCodes.Status200OK)]
         public async Task<ActionResult<MerchandiseItem>> GetById(long id, CancellationToken token)
         {
-            var MerchandiseItem = await _merchandiseService.GetById(id, token);
-            if (MerchandiseItem is null)
+            var merchandiseItem = await _merchandiseService.GetById(id, token);
+            if (merchandiseItem is null)
             {
                 return NotFound();
             }
 
-            return MerchandiseItem;
+            return merchandiseItem;
         }
 
         /// <summary>
@@ -51,6 +53,35 @@ namespace MerchandiseService.Controllers.V1
                 Quantity = postViewModel.Quantity
             }, token);
             return Ok(createdMerchandiseItem);
+        }
+
+        /// <summary>
+        /// Запросить мерч
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetMerch")]
+        public async Task<IActionResult> GetMerch()
+        {
+            var merchandiseItems = await _merchandiseService.GetMerch();
+            return Ok(merchandiseItems);
+        }
+
+        /// <summary>
+        /// Получить информацию о выдаче мерча
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetMerchExtraditionInfo")]
+        public async Task<IActionResult> GetMerchExtraditionInfo(MerchandiseGetItem item = default)
+        {
+            if (item == default)
+            {
+                var merchandiseItems = await _merchandiseService.GetMerchExtraditionInfo();
+                return Ok(merchandiseItems);
+            }
+            else
+                return BadRequest();
         }
     }
 

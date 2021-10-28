@@ -1,23 +1,27 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 
 namespace MerchandiseService.Infrastructure.Middlewares
 {
-    public class RequestLogging
+    public class RequestLoggingMiddleware
     {
-        private readonly ILogger<RequestLogging> _logger;
+        private readonly RequestDelegate _next;
+        private readonly ILogger<RequestLoggingMiddleware> _logger;
 
-        public RequestLogging(ILogger<RequestLogging> logger)
+        public RequestLoggingMiddleware(RequestDelegate next, ILogger<RequestLoggingMiddleware> logger)
         {
+            _next = next;
             _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
             await LogRequest(context);
+            await _next(context);
         }
 
         private async Task LogRequest(HttpContext context)
@@ -29,15 +33,18 @@ namespace MerchandiseService.Infrastructure.Middlewares
                     context.Request.EnableBuffering();
 
                     var buffer = new byte[context.Request.ContentLength.Value];
-                    var buffer2 = context.Request.ContentLength.Value;
-                    var headers = context.Request.Headers.Values;
-                    var route = context.Request.RouteValues.Values;
+                    var headers = context.Request.Headers.Values.ToArray();
+                    var route = context.Request.Path + context.Request.Method;
+
                     await context.Request.Body.ReadAsync(buffer, 0, buffer.Length);
+
                     var bodyAsText = Encoding.UTF8.GetString(buffer);
-                    var headerAsText = Encoding.UTF8.GetString(buffer);
-                    var routeAsText = Encoding.UTF8.GetString(buffer);
+                    var headersAsText = string.Join("; \r\n", headers.Select(h => h.ToString()));
+
                     _logger.LogInformation("Request logged");
                     _logger.LogInformation(bodyAsText);
+                    _logger.LogInformation(headersAsText);
+                    _logger.LogInformation(route);
 
                     context.Request.Body.Position = 0;
                 }

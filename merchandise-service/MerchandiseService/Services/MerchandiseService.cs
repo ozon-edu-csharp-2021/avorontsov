@@ -31,5 +31,15 @@ namespace MerchandiseService.Services
             MerchandiseItems.Add(newMerchandiseItem);
             return Task.FromResult(newMerchandiseItem);
         }
+
+        public Task<MerchandiseItem> GetMerch()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<MerchandiseItem> GetMerchExtraditionInfo()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

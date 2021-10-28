@@ -3,6 +3,8 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Version>5.5.2</Version>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,11 +15,13 @@
 
     <ItemGroup>
       <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
+      <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\MerchandiseService.HttpModels\MerchandiseService.HttpModels.csproj" />
+      <ProjectReference Include="..\MerchandiseService.HttpClients\MerchandiseService.HttpClients.csproj" />
     </ItemGroup>
 
 </Project>

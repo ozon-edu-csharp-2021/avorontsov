@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using System;
 
 namespace MerchandiseService.Infrastructure.StartupFilters
 {
@@ -11,7 +11,7 @@ namespace MerchandiseService.Infrastructure.StartupFilters
             return app =>
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SwaggerTest v1"));
                 next(app);
             };
         }

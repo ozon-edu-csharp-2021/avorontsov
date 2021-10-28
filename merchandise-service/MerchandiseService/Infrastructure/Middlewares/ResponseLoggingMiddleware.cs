@@ -1,23 +1,26 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 
 namespace MerchandiseService.Infrastructure.Middlewares
 {
-    public class ResponseLogging
+    public class ResponseLoggingMiddleware
     {
-        private readonly ILogger<ResponseLogging> _logger;
+        private readonly RequestDelegate _next;
+        private readonly ILogger<ResponseLoggingMiddleware> _logger;
 
-        public ResponseLogging(ILogger<ResponseLogging> logger)
+        public ResponseLoggingMiddleware(RequestDelegate next, ILogger<ResponseLoggingMiddleware> logger)
         {
+            _next = next;
             _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
             await LogResponse(context);
+            await _next(context);
         }
 
         private async Task LogResponse(HttpContext context)

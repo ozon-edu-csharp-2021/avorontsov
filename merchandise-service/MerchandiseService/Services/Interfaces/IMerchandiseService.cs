@@ -12,5 +12,9 @@ namespace MerchandiseService.Services.Interfaces
         Task<MerchandiseItem> GetById(long itemId, CancellationToken _);
 
         Task<MerchandiseItem> Add(MerchandiseItemCreationModel merchandiseItem, CancellationToken _);
+
+        Task<MerchandiseItem> GetMerch();
+
+        Task<MerchandiseItem> GetMerchExtraditionInfo();
     }
 }
