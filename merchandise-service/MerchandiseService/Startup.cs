@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using MerchandiseService.Models;
 
 namespace MerchandiseService
 {
@@ -32,7 +33,7 @@ namespace MerchandiseService
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "OzonEdu.MerchandiseService", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "OzonEdu.MerchandiseService", Version = "v1"});
                 options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
                 options.CustomSchemaIds(x => x.FullName);
@@ -43,6 +44,8 @@ namespace MerchandiseService
 
                 options.OperationFilter<HeaderOperationFilter>();
             });
+
+            services.AddGrpc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +62,7 @@ namespace MerchandiseService
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapGrpcService<Merchendis ApiGrpService>();
+                endpoints.MapGrpcService <MerchandiseApiGrpService> ();
                 endpoints.MapControllers();
             });
         }
