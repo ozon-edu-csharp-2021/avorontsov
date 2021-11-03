@@ -66,9 +66,7 @@ namespace MerchandiseService.Models
 
         public override Task<Empty> AddMerchandiseItem(AddMerchandiseItemRequest request, ServerCallContext context)
         {
-            throw new RpcException(
-                new Status(StatusCode.InvalidArgument, "validation failed"),
-                new Metadata { new Metadata.Entry("key", "our value") });
+            throw new RpcException(new Status(StatusCode.InvalidArgument, "validation failed"), new Metadata { new Metadata.Entry("key", "our value") });
         }
 
         public override async Task GetAllMerchandiseItemsStreaming(
@@ -111,9 +109,9 @@ namespace MerchandiseService.Models
             return new Empty();
         }
 
-        public override async Task<GetMerchResponse> GetMerch(GetMerchRequest request, ServerCallContext context)
+        public override Task<Empty> PostMerch(PostMerchRequest request, ServerCallContext context)
         {
-            throw new NotImplementedException();
+            throw new RpcException(new Status(StatusCode.DataLoss, "oh no we lost data"), new Metadata { new Metadata.Entry("dLossKey", "our value") });
         }
 
         public override async Task<GetMerchResponse> GetMerchExtraditionInfo(GetMerchRequest request, ServerCallContext context)

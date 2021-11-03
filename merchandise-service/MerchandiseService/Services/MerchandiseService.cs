@@ -32,7 +32,7 @@ namespace MerchandiseService.Services
             return Task.FromResult(newMerchandiseItem);
         }
 
-        public Task<MerchandiseItem> GetMerch()
+        public Task<MerchandiseItem> PostMerch()
         {
             throw new System.NotImplementedException();
         }

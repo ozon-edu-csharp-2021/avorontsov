@@ -7,13 +7,13 @@ namespace MerchandiseService.Services.Interfaces
 {
     public interface IMerchandiseService
     {
-        Task<List<MerchandiseItem>> GetAll(CancellationToken token);
+        Task<List<MerchandiseItem>> GetAll(CancellationToken ct);
 
         Task<MerchandiseItem> GetById(long itemId, CancellationToken _);
 
         Task<MerchandiseItem> Add(MerchandiseItemCreationModel merchandiseItem, CancellationToken _);
 
-        Task<MerchandiseItem> GetMerch();
+        Task<MerchandiseItem> PostMerch();
 
         Task<MerchandiseItem> GetMerchExtraditionInfo();
     }

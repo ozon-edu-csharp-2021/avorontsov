@@ -19,14 +19,15 @@ namespace MerchandiseService.Infrastructure.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            await LogResponse(context);
             await _next(context);
+            await LogResponse(context);
         }
 
         private async Task LogResponse(HttpContext context)
         {
             try
             {
+                // чет я не вкуриваю как мы можем добраться до Response. ContentLength всегда = null
                 if (context.Response.ContentLength > 0)
                 {
                     var buffer = new byte[context.Response.ContentLength.Value];
@@ -34,8 +35,6 @@ namespace MerchandiseService.Infrastructure.Middlewares
                     var bodyAsText = Encoding.UTF8.GetString(buffer);
                     _logger.LogInformation("Response logged");
                     _logger.LogInformation(bodyAsText);
-
-                    context.Response.Body.Position = 0;
                 }
             }
             catch (Exception e)

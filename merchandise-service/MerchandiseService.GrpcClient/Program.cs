@@ -6,18 +6,15 @@ using System;
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
 var client = new MerchandiseServiceGrpc.MerchandiseServiceGrpcClient(channel);
 
-try
-{
-    await client.AddMerchandiseItemAsync(new AddMerchandiseItemRequest() { Quantity = 1, ItemName = "item to add" });
-}
-catch (RpcException e)
-{
-    Console.WriteLine(e);
-}
+// var response = await client.GetAllMerchandiseItemsAsync(new GetAllMerchandiseItemsRequest(),  ct: CancellationToken.None);
+// foreach (var item in response.Merchandises)
+// {
+//     Console.WriteLine(($"item id {item.ItemId} - quantity {item.Quantity}"));
+// }
 
 try
 {
-    await client.GetMerchAsync(new GetMerchRequest() { ItemId = 1 });
+    await client.PostMerchAsync(new PostMerchRequest() { SomeField = "it's my string!", OtherField = 33 });
 }
 catch (RpcException e)
 {

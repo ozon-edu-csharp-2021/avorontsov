@@ -21,17 +21,17 @@ namespace MerchandiseService.HttpClients
             _httpClient = httpClient;
         }
 
-        public async Task<List<MerchandiseItemResponse>> V1GetAll(CancellationToken token)
+        public async Task<List<MerchandiseItemResponse>> V1GetAll(CancellationToken ct)
         {
-            using var response = await _httpClient.GetAsync("v1/api/merchandise", token);
-            var body = await response.Content.ReadAsStringAsync(token);
+            using var response = await _httpClient.GetAsync("v1/api/merchandise", ct);
+            var body = await response.Content.ReadAsStringAsync(ct);
             return JsonSerializer.Deserialize<List<MerchandiseItemResponse>>(body);
         }
 
-        public async Task<List<MerchandiseItemResponse>> V1GetMerch(CancellationToken token)
+        public async Task<List<MerchandiseItemResponse>> V1PostMerch(CancellationToken ct)
         {
-            using var response = await _httpClient.GetAsync("v1/api/merchandise", token);
-            var body = await response.Content.ReadAsStringAsync(token);
+            using var response = await _httpClient.GetAsync("v1/api/merchandise", ct);
+            var body = await response.Content.ReadAsStringAsync(ct);
             return JsonSerializer.Deserialize<List<MerchandiseItemResponse>>(body);
         }
     }

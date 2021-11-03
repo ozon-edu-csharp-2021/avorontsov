@@ -19,13 +19,13 @@ namespace MerchandiseService.Controllers.V2
         }
 
         [HttpPost]
-        public async Task<ActionResult<MerchandiseItem>> Add(MerchandiseItemPostViewModelV2 postViewModel, CancellationToken token)
+        public async Task<ActionResult<MerchandiseItem>> Add(MerchandiseItemPostViewModelV2 postViewModel, CancellationToken ct)
         {
             var createdMerchandiseItem = await _merchandiseService.Add(new MerchandiseItemCreationModel
             {
                 ItemName = postViewModel.ItemName,
                 Quantity = postViewModel.Quantity.Value
-            }, token);
+            }, ct);
             return Ok(createdMerchandiseItem);
         }
     }

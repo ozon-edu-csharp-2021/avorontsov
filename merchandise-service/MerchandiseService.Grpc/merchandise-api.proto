@@ -17,7 +17,7 @@ service MerchandiseServiceGrpc {
   
   rpc AddMerchandiseItemStreaming (stream AddMerchandiseItemRequest) returns (google.protobuf.Empty);
   
-  rpc GetMerch (GetMerchRequest) returns (GetMerchResponse);
+  rpc PostMerch (PostMerchRequest) returns (google.protobuf.Empty);
   
   rpc GetMerchExtraditionInfo (GetMerchRequest) returns (GetMerchResponse);
 }
@@ -66,4 +66,9 @@ message GetMerchRequest {
 
 message GetMerchResponse {
   repeated GetAllMerchandiseItemsResponseUnit merchandises = 1;
+}
+
+message PostMerchRequest {
+  string some_field = 1;
+  int32 other_field = 2;
 }

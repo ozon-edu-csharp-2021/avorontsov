@@ -4,6 +4,7 @@ using MerchandiseService.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,17 +23,17 @@ namespace MerchandiseService.Controllers.V1
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(CancellationToken token)
+        public async Task<ActionResult<List<MerchandiseItem>>> GetAll(CancellationToken ct)
         {
-            var merchandiseItems = await _merchandiseService.GetAll(token);
+            var merchandiseItems = await _merchandiseService.GetAll(ct);
             return Ok(merchandiseItems);
         }
 
         [HttpGet("{id:long}")]
         [ProducesResponseType(typeof(MerchandiseItem), StatusCodes.Status200OK)]
-        public async Task<ActionResult<MerchandiseItem>> GetById(long id, CancellationToken token)
+        public async Task<ActionResult<MerchandiseItem>> GetById(long id, CancellationToken ct)
         {
-            var merchandiseItem = await _merchandiseService.GetById(id, token);
+            var merchandiseItem = await _merchandiseService.GetById(id, ct);
             if (merchandiseItem is null)
             {
                 return NotFound();
@@ -45,13 +46,13 @@ namespace MerchandiseService.Controllers.V1
         /// Добавляет Merchandise item.
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<MerchandiseItem>> Add(MerchandiseItemPostViewModel postViewModel, CancellationToken token)
+        public async Task<ActionResult<MerchandiseItem>> Add(MerchandiseItemPostViewModel postViewModel, CancellationToken ct)
         {
             var createdMerchandiseItem = await _merchandiseService.Add(new MerchandiseItemCreationModel
             {
                 ItemName = postViewModel.ItemName,
                 Quantity = postViewModel.Quantity
-            }, token);
+            }, ct);
             return Ok(createdMerchandiseItem);
         }
 
@@ -60,10 +61,10 @@ namespace MerchandiseService.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetMerch")]
-        public async Task<IActionResult> GetMerch()
+        [Route("PostMerch")]
+        public async Task<IActionResult> PostMerch()
         {
-            var merchandiseItems = await _merchandiseService.GetMerch();
+            var merchandiseItems = await _merchandiseService.PostMerch();
             return Ok(merchandiseItems);
         }
 
